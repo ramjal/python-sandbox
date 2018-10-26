@@ -1,6 +1,6 @@
 import sys
 print(sys.path)
-sys.path.append(r"C:\DevLcl\Sandbox\Python")
+sys.path.append(r"C:\DevLcl\Sandbox\python-sandbox\think_python\test")
 print(sys.path)
 import testing_import_source
 print('')
