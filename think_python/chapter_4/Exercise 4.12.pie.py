@@ -49,8 +49,11 @@ trtl.lt(10)
 polyline2(trtl, 80, 7)
     
 
-# tells the window to wait for the user to do something
-# turtle.mainloop()
+## tells the window to wait for the user to do something
+trtl.screen.mainloop()
+
+
+
 
 
 
