@@ -21,7 +21,7 @@ bob.pendown()
 
 polygon(bob, 80, 8)
 
-turtle.mainloop()
+bob.screen.mainloop()
 
 
 
