@@ -6,4 +6,17 @@ def is_anagram(w1, w2):
     return l1 == l2
 
 
-print(is_anagram('abc', 'cba'))
+while True:
+    words = input('Give me two words (space delimited)...\n')
+    if words == 'exit':
+        break
+
+    if len(words.split()) != 2:
+        print('not a good entry! try again!')
+        
+    if is_anagram(words.split()[0], words.split()[1]):
+        print('anagram')
+    else:
+        print('no-anagram')
+
+# print(is_anagram('abc', 'cba'))
