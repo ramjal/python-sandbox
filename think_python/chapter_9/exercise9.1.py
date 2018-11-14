@@ -1,4 +1,4 @@
-fin = open(r'C:\DevLcl\Sandbox\python-sandbox\think_python\chapter_9\words.txt')
+fin = open(r'C:\DevLcl\Sandbox\python-sandbox\think_python\words.txt')
 
 counter = 0
 for line in fin:

@@ -1,4 +1,4 @@
-fin = open(r'C:\DevLcl\Sandbox\python-sandbox\think_python\chapter_9\words.txt')
+fin = open(r'C:\DevLcl\Sandbox\python-sandbox\think_python\words.txt')
 
 def is_three_consecutive_double2(word):
     for i in range(len(word)-1):

@@ -1,5 +1,5 @@
 
-fin = open(r'C:\DevLcl\Sandbox\python-sandbox\think_python\chapter_9\words.txt')
+fin = open(r'C:\DevLcl\Sandbox\python-sandbox\think_python\words.txt')
 
 def is_abecedarian(word):
     for i in range(len(word)-1):

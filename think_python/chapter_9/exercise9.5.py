@@ -1,5 +1,5 @@
 
-fin = open(r'C:\DevLcl\Sandbox\python-sandbox\think_python\chapter_9\words.txt')
+fin = open(r'C:\DevLcl\Sandbox\python-sandbox\think_python\words.txt')
 
 def uses_all(word, required):
     for letter in required:

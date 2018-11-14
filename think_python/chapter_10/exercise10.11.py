@@ -2,7 +2,7 @@ import sys
 import listsearch
 sys.path.append(r"C:\DevLcl\Sandbox\python-sandbox\think_python\chapter_10")
 
-fin = open(r'C:\DevLcl\Sandbox\python-sandbox\think_python\chapter_9\words.txt')
+fin = open(r'C:\DevLcl\Sandbox\python-sandbox\think_python\words.txt')
 
 def word_list():
     thelist = []
