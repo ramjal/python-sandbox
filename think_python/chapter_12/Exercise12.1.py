@@ -4,7 +4,7 @@
 def most_frequent(s):
     d = dict()
     for c in s:
-        d[c] = d.setdefault(c, 0) + 1
+        d[c] = d.get(c, 0) + 1
     
     pairs = zip(d.values(), d.keys()) # Could be included in-line in the next line
     for v in sorted(pairs, reverse=True):

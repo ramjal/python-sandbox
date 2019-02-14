@@ -1,0 +1,2 @@
+This is the first newline in test1 file
+this is the second newline in test2 file
