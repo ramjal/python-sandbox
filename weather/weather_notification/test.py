@@ -23,7 +23,7 @@ def main():
         msg.append('Min: {}°'.format(tempMin))
         msg.append('Max: {}°'.format(tempMax))
         l = [w['description'] for w in weather['weather']]
-        msg.append('Condition: {}'.format(', '.join(l)))
+        msg.append('Condition: {}'.format(l))
         message = '\n'.join(msg)
         print(message)
 
