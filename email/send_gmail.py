@@ -1,4 +1,4 @@
-from __future__ import print_function
+import sys
 import pickle
 import os.path
 import base64
@@ -10,6 +10,9 @@ from google.auth.transport.requests import Request
 # If modifying these scopes, delete the file token.pickle.
 # SCOPES = ['https://www.googleapis.com/auth/gmail.readonly']
 SCOPES = ['https://www.googleapis.com/auth/gmail.compose']
+
+def test():
+    print('testing from SendGmail')
 
 
 def create_message(sender, to, subject, message_text):
@@ -29,6 +32,7 @@ def create_message(sender, to, subject, message_text):
     message['from'] = sender
     message['subject'] = subject
     return {'raw': base64.urlsafe_b64encode(message.as_string().encode()).decode()}
+
 
 def send_message(service, user_id, message):
     """Send an email message.
@@ -50,16 +54,15 @@ def send_message(service, user_id, message):
         print('An error occurred: %s' % e)
 
 
-def main():
-    """Shows basic usage of the Gmail API.
-    Lists the user's Gmail labels.
-    """
+def service_factory():
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
+    tokenfile = r'C:\DevLcl\Sandbox\python_sandbox\email\token.pickle'
+    credfile = r'C:\DevLcl\Sandbox\python_sandbox\email\credentials.json'
+    if os.path.exists(tokenfile):
+        with open(tokenfile, 'rb') as token:
             creds = pickle.load(token)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
@@ -67,15 +70,19 @@ def main():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
+                credfile, SCOPES)
             creds = flow.run_local_server()
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
-
     service = build('gmail', 'v1', credentials=creds)
+    return service
 
-    testMessage = create_message('ramjal@gmail.com', 'vancouverdevelop@gmail.com', 'This is the subject', 'Send by Google API: This is the body of the email')
+
+def main():
+    service = service_factory()
+    #testMessage = create_message('ramjal@gmail.com', 'vancouverdevelop@gmail.com', 'This is the subject', 'Send by Google API: This is the body of the email')
+    testMessage = create_message('ramjal@gmail.com', 'rjalali@westlandinsurance.ca', 'This is the subject', 'Send by Google API: This is the body of the email')
     send_message(service, 'me', testMessage)
 
 if __name__ == '__main__':

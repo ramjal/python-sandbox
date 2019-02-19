@@ -1,4 +1,5 @@
 '''
+    To get this to work:
     On your gmail account you need to turn 'Allow less secure apps' to ON.
     https://myaccount.google.com/lesssecureapps
     Be aware that this makes it easier for others to gain access to your account. 
