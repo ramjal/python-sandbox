@@ -24,7 +24,12 @@ class Graph:
     def print_graph(self):
         for vertix in self.vertices.values():
             print(vertix.name, '->', vertix.neighbors)
-        
+    
+    def reset(self):
+        for vertix in self.vertices.values():
+            vertix.discovered = False
+
+
     def dfsRecursive(self, name):
         vertex = self.vertices[name]
         if not vertex.discovered:
@@ -33,9 +38,9 @@ class Graph:
             for vName in vertex.neighbors:
                 self.dfsRecursive(vName)
 
-    def dfsIterative(self, name):
-        vertex = self.vertices[name]
+    def dfsStack(self, name):
         stack = []
+        vertex = self.vertices[name]
         stack.append(vertex)
         while stack:
             vertex = stack.pop()
@@ -46,16 +51,16 @@ class Graph:
                     stack.append(self.vertices[vName])
 
 
-
-
 vertices = [0, 1, 2, 3, 4, 5, 6]
 edgeList = [(0,1), (0,2), (1,0) , (1,3) , (2,0) , (2,4) , (2,5) , (3,1), (4,2) , (4,6), (5,2), (6,4)]
 g = Graph(vertices, edgeList)
 g.print_graph()
+
 print("--------- Recursive -----------")
 g.dfsRecursive(0)
-g = Graph(vertices, edgeList)
-print("--------- Iterative -----------")
-g.dfsIterative(0)
+
+g.reset()
+print("--------- Stack -----------")
+g.dfsStack(0)
 
 
