@@ -96,22 +96,40 @@ def tinyMazeSearch(problem):
     return  [s, s, w, s, w, w, s, w]
 
 
-def dfsIterative(problem, pos):
+def dfs_search(problem):
     discovered = []
     s = util.Stack()
-    s.push((pos, []))
+    s.push((problem.getStartState(), []))
     while not s.isEmpty():
         pos, actionList = s.pop()
         if problem.isGoalState(pos):
             return actionList
         if not pos in discovered:            
             discovered.append(pos)
-            print("discovered:", pos, " - move:", actionList)
+            #print("discovered:", pos, " - move:", actionList)
             for successor, action, stepCost in problem.getSuccessors(pos):
                 print("\t", successor, action, stepCost)
                 # We need to keep all the actions needed for each node
                 # so we add the each successor action to the actionList
                 s.push((successor, actionList + [action]))
+
+
+def bfs_search(problem):
+    discovered = []
+    q = util.Queue()
+    q.push((problem.getStartState(), []))
+    while not q.isEmpty():
+        pos, actionList = q.pop()
+        if problem.isGoalState(pos):
+            return actionList
+        if not pos in discovered:            
+            discovered.append(pos)
+            #print("discovered:", pos, " - move:", actionList)
+            for successor, action, stepCost in problem.getSuccessors(pos):
+                print("\t", successor, action, stepCost)
+                # We need to keep all the actions needed for each node
+                # so we add the each successor action to the actionList
+                q.push((successor, actionList + [action]))
 
 
 def depthFirstSearch(problem):
@@ -129,6 +147,10 @@ def depthFirstSearch(problem):
     print (problem.isGoalState(problem.getStartState()) )
     print ( problem.getSuccessors(problem.getStartState()) )
 
+    python pacman.py -l tinyMaze -p SearchAgent
+    python pacman.py -l mediumMaze -p SearchAgent
+    python pacman.py -l bigMaze -z .5 -p SearchAgent
+
     """
     "*** YOUR CODE HERE ***"
 
@@ -136,20 +158,27 @@ def depthFirstSearch(problem):
     # print ( problem.isGoalState(problem.getStartState()) )
     # print ( problem.isGoalState((4,5)) )
     
-    actions = dfsIterative(problem, (5,5))
-    print()
-    print('Yoo-Hoo ====>>>>', actions)
-    print()
+    actions = dfs_search(problem)
+    # print()
+    # print('Yoo-Hoo ====>>>>', actions)
+    # print()
     return actions
-    
 
 
 def breadthFirstSearch(problem):
     """Questoin 1.2
      Search the shallowest nodes in the search tree first.
-     """
-    "*** YOUR CODE HERE ***"
 
+     python pacman.py -l mediumMaze -p SearchAgent -a fn=bfs
+     python pacman.py -l bigMaze -p SearchAgent -a fn=bfs -z .5
+     """
+     
+    "*** YOUR CODE HERE ***"
+    actions = bfs_search(problem)
+    # print()
+    # print('Yoo-Hoo ====>>>>', actions)
+    # print()
+    return actions
 
 
 def nullHeuristic(state, problem=None):
