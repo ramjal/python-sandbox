@@ -95,6 +95,25 @@ def tinyMazeSearch(problem):
     w = Directions.WEST
     return  [s, s, w, s, w, w, s, w]
 
+
+def dfsIterative(problem, pos):
+    discovered = []
+    s = util.Stack()
+    s.push((pos, []))
+    while not s.isEmpty():
+        pos, actionList = s.pop()
+        if problem.isGoalState(pos):
+            return actionList
+        if not pos in discovered:            
+            discovered.append(pos)
+            print("discovered:", pos, " - move:", actionList)
+            for successor, action, stepCost in problem.getSuccessors(pos):
+                print("\t", successor, action, stepCost)
+                # We need to keep all the actions needed for each node
+                # so we add the each successor action to the actionList
+                s.push((successor, actionList + [action]))
+
+
 def depthFirstSearch(problem):
     """
     Questoin 1.1
@@ -112,6 +131,17 @@ def depthFirstSearch(problem):
 
     """
     "*** YOUR CODE HERE ***"
+
+    # print ( problem.getStartState() )
+    # print ( problem.isGoalState(problem.getStartState()) )
+    # print ( problem.isGoalState((4,5)) )
+    
+    actions = dfsIterative(problem, (5,5))
+    print()
+    print('Yoo-Hoo ====>>>>', actions)
+    print()
+    return actions
+    
 
 
 def breadthFirstSearch(problem):
