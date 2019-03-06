@@ -108,7 +108,7 @@ def dfs_search(problem):
             discovered.append(pos)
             #print("discovered:", pos, " - move:", actionList)
             for successor, action, stepCost in problem.getSuccessors(pos):
-                print("\t", successor, action, stepCost)
+                # print("\t", successor, action, stepCost)
                 # We need to keep all the actions needed for each node
                 # so we add the each successor action to the actionList
                 s.push((successor, actionList + [action]))
@@ -126,7 +126,7 @@ def bfs_search(problem):
             discovered.append(pos)
             #print("discovered:", pos, " - move:", actionList)
             for successor, action, stepCost in problem.getSuccessors(pos):
-                print("\t", successor, action, stepCost)
+                # print("\t", successor, action, stepCost)
                 # We need to keep all the actions needed for each node
                 # so we add the each successor action to the actionList
                 q.push((successor, actionList + [action]))
@@ -186,16 +186,68 @@ def nullHeuristic(state, problem=None):
     A heuristic function estimates the cost from the current state to the nearest
     goal in the provided SearchProblem.  This heuristic is trivial.
     """
-    return 0
+    xy1 = state
+    xy2 = problem.goal
+    return abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1])
 
-def aStarSearch(problem, heuristic=nullHeuristic):
+# This is with python Queue
+from queue import PriorityQueue
+def aStarSearchP(problem, heuristic=nullHeuristic):
     """Question 1.3
+    
+    python pacman.py -l bigMaze -z .5 -p SearchAgent -a fn=astar,heuristic=manhattanHeuristic
+
     Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
+    discovered = []
+    pq = PriorityQueue()
+    pq.put((heuristic(problem.getStartState(), problem), problem.getStartState(), []))
+    while not pq.empty():
+        cost, pos, actionList = pq.get()
+        # print(cost)
+        if problem.isGoalState(pos):            
+            return actionList
+        if not pos in discovered:            
+            discovered.append(pos)
+            #print("discovered:", pos, " - move:", actionList)
+            for successor, action, stepCost in problem.getSuccessors(pos):
+                # print("\t", successor, action, stepCost)
+                # We need to keep all the actions needed for each node
+                # so we add the each successor action to the actionList
+                cost = heuristic(pos, problem) + len(actionList + [action])
+                pq.put((cost, successor, actionList + [action]))
+
+
+# this is done with util.Queue
+def aStarSearch(problem, heuristic=nullHeuristic):
+    """Question 1.3
+    
+    python pacman.py -l bigMaze -z .5 -p SearchAgent -a fn=astar,heuristic=manhattanHeuristic
+
+    Search the node that has the lowest combined cost and heuristic first."""
+    "*** YOUR CODE HERE ***"
+    discovered = []
+    pq = util.PriorityQueue()    
+    pq.push((problem.getStartState(), []), heuristic(problem.getStartState(), problem))
+    while not pq.isEmpty():
+        pos, actionList = pq.pop()        
+        if problem.isGoalState(pos):            
+            return actionList
+        if not pos in discovered:            
+            discovered.append(pos)
+            #print("discovered:", pos, " - move:", actionList)
+            for successor, action, stepCost in problem.getSuccessors(pos):
+                # print("\t", successor, action, stepCost)
+                # We need to keep all the actions needed for each node
+                # so we add the each successor action to the actionList
+                cost = heuristic(pos, problem) + len(actionList + [action])
+                pq.push((successor, actionList + [action]), cost)
+
 
 
 
 # Abbreviations
 bfs = breadthFirstSearch
 dfs = depthFirstSearch
-astar = aStarSearch
+astar = aStarSearch   # with util Queue
+astarp = aStarSearchP  # with python Queue
