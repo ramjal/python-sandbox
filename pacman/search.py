@@ -186,18 +186,15 @@ def nullHeuristic(state, problem=None):
     A heuristic function estimates the cost from the current state to the nearest
     goal in the provided SearchProblem.  This heuristic is trivial.
     """
-    xy1 = state
-    xy2 = problem.goal
-    return abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1])
+    return util.manhattanDistance(state, problem.goal)
 
-# This is with python Queue
+# This is done using python Queue
 from queue import PriorityQueue
 def aStarSearchP(problem, heuristic=nullHeuristic):
-    """Question 1.3
-    
-    python pacman.py -l bigMaze -z .5 -p SearchAgent -a fn=astar,heuristic=manhattanHeuristic
-
-    Search the node that has the lowest combined cost and heuristic first."""
+    """Question 1.3    
+        python pacman.py -l bigMaze -z .5 -p SearchAgent -a fn=astarp,heuristic=manhattanHeuristic
+        python pacman.py -l openMaze -z .5 -p SearchAgent -a fn=astarp,heuristic=manhattanHeuristic
+    Search the node that has the lowest combined cost and heuristic first."""    
     "*** YOUR CODE HERE ***"
     discovered = []
     pq = PriorityQueue()
@@ -218,7 +215,7 @@ def aStarSearchP(problem, heuristic=nullHeuristic):
                 pq.put((cost, successor, actionList + [action]))
 
 
-# this is done with util.Queue
+# this is done using util.Queue
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Question 1.3
     
