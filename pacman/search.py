@@ -99,9 +99,9 @@ def tinyMazeSearch(problem):
 def dfs_search(problem):
     discovered = []
     s = util.Stack()
-    s.push((problem.getStartState(), []))
+    s.push((problem.getStartState(), [], 0))
     while not s.isEmpty():
-        pos, actionList = s.pop()
+        pos, actionList, totalCost = s.pop()
         if problem.isGoalState(pos):
             return actionList
         if not pos in discovered:            
@@ -111,48 +111,25 @@ def dfs_search(problem):
                 # print("\t", successor, action, stepCost)
                 # We need to keep all the actions needed for each node
                 # so we add the each successor action to the actionList
-                s.push((successor, actionList + [action]))
-
-
-#Coded for Question 2.1
-def bfs_search_new(problem):
-    mainActionList = []
-    while len(problem.cornersLeft) > 0:
-        discovered = []
-        q = util.Queue()
-        q.push((problem.getStartState(), []))
-        while not q.isEmpty():
-            pos, actionList = q.pop()
-            if problem.isGoalState(pos):
-                mainActionList.extend(actionList)
-                break
-            if not pos in discovered:            
-                discovered.append(pos)
-                #print("discovered:", pos, " - move:", actionList)
-                for successor, action, stepCost in problem.getSuccessors(pos):
-                    # print("\t", successor, action, stepCost)
-                    # We need to keep all the actions needed for each node
-                    # so we add the each successor action to the actionList
-                    q.push((successor, actionList + [action]))
-    return mainActionList
+                s.push((successor, actionList + [action], totalCost + stepCost))
 
 
 def bfs_search(problem):
     discovered = []
     q = util.Queue()
-    q.push((problem.getStartState(), []))
+    q.push((problem.getStartState(), [], 0))
     while not q.isEmpty():
-        pos, actionList = q.pop()
+        pos, actionList, totalCost = q.pop()
         if problem.isGoalState(pos):
             return actionList
         if not pos in discovered:            
             discovered.append(pos)
             #print("discovered:", pos, " - move:", actionList)
-            for successor, action, stepCost in problem.getSuccessors(pos):
+            for successor, action, stepCost, in problem.getSuccessors(pos):
                 # print("\t", successor, action, stepCost)
                 # We need to keep all the actions needed for each node
                 # so we add the each successor action to the actionList
-                q.push((successor, actionList + [action]))
+                q.push((successor, actionList + [action], totalCost + stepCost))
     
 
 def depthFirstSearch(problem):
@@ -175,27 +152,12 @@ def depthFirstSearch(problem):
     python pacman.py -l bigMaze -z .5 -p SearchAgent
 
     """
-    "*** YOUR CODE HERE ***"
-    coordinates = util.Queue()
-    visitedCoordinates = [] 
-    coordinates.push((problem.getStartState(),[], 0)) #Starting point is not a tuple, so we make it one before pushing it
-    while not coordinates.isEmpty():
-        currentPosition, lastMoves, totalCost = coordinates.pop()
-        if problem.isGoalState(currentPosition): return lastMoves
-        elif currentPosition not in visitedCoordinates:
-            visitedCoordinates.append(currentPosition)
-            for nextPosition, nextAction, nextCost in problem.getSuccessors(currentPosition):
-                coordinates.push((nextPosition, lastMoves + [nextAction], nextCost+totalCost))
-
-    # print ( problem.getStartState() )
-    # print ( problem.isGoalState(problem.getStartState()) )
-    # print ( problem.isGoalState((4,5)) )
-   
-    # actions = dfs_search(problem)
+    "*** YOUR CODE HERE ***"   
+    actions = dfs_search(problem)
     # # print()
     # # print('Yoo-Hoo ====>>>>', actions)
     # # print()
-    # return actions
+    return actions
 
 
 def breadthFirstSearch(problem):

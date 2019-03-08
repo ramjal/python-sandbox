@@ -385,8 +385,12 @@ def cornersHeuristic(state, problem):
     """
     corners = problem.corners # These are the corner coordinates
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
+    currentPosition, cornersLeft = state
+    allDistances = []
+    for corner in cornersLeft:
+        allDistances.append(util.manhattanDistance(currentPosition, corner))
 
-    "*** YOUR CODE HERE ***"
+    return min(allDistances)
 
 
 def mazeDistance(point1, point2, gameState):
