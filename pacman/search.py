@@ -206,7 +206,7 @@ def aStarSearchP(problem, heuristic=nullHeuristic):
                 # print("\t", successor, action, stepCost)
                 # We need to keep all the actions needed for each node
                 # so we add the each successor action to the actionList
-                cost = heuristic(pos, problem) + len(actionList + [action])
+                cost = heuristic(successor, problem) + len(actionList + [action])
                 pq.put((cost, successor, actionList + [action]))
 
 
@@ -232,7 +232,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
                 # print("\t", successor, action, stepCost)
                 # We need to keep all the actions needed for each node
                 # so we add the each successor action to the actionList
-                cost = heuristic(pos, problem) + len(actionList + [action])
+                cost = heuristic(successor, problem) + len(actionList + [action])
                 pq.push((successor, actionList + [action]), cost)
 
 
