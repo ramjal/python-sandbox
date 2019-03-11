@@ -382,24 +382,32 @@ def cornersHeuristic(state, problem):
     This function should always return a number that is a lower bound on the
     shortest path from the state to a goal of the problem; i.e.  it should be
     admissible (as well as consistent).
-    """
-    import sys
-
+    """    
     corners = problem.corners # These are the corner coordinates
-    walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
-    currentPosition, cornersLeft = state    
-    distMap = {}
-    for corner in cornersLeft:
-        distMap[corner] = util.manhattanDistance(currentPosition, corner)
-    
-    lowest = sys.maxsize
-    for corner, dist in distMap.items():
-        if dist < lowest:
-            lowest = dist
-            closestCorner = corner
-        
-    return lowest
+    walls = problem.walls # These are the walls of the maze, as a Grid (game.py)    
+    currentPosition, cornersLeft = state
 
+    if len(cornersLeft) == 0: 
+        return 0
+    allDistances = []
+    for corner in cornersLeft:
+        allDistances.append(util.manhattanDistance(currentPosition, corner))
+    return min(allDistances)
+    
+    # import sys
+    # distMap = {}
+    # if len(cornersLeft) == 0: 
+    #     return 0
+    # for corner in cornersLeft:
+    #     distMap[corner] = util.manhattanDistance(currentPosition, corner)    
+    # lowest = sys.maxsize
+    # for corner, dist in distMap.items():
+    #     if dist < lowest:
+    #         lowest = dist
+    #         closestCorner = corner        
+    # return lowest
+
+    # allDistances = []
     # for corner in cornersLeft:
     #     actionList = cornersAStarSearch(state, problem, corner)
     #     allDistances.append(len(actionList))
@@ -407,23 +415,22 @@ def cornersHeuristic(state, problem):
     #     #print(actionList)
     # return min(allDistances)
 
-
-def cornersAStarSearch(state, problem, goal):
-    currentPosition, cornersLeft = state
-    discovered = []
-    pq = util.PriorityQueue()    
-    pq.push((state, []), util.manhattanDistance(currentPosition, goal))
-    while not pq.isEmpty():
-        popState, actionList = pq.pop()
-        pos, cornersLeft = popState
-        if pos == goal:
-            return actionList
-        if not pos in discovered:
-            discovered.append(pos)
-            #print("discovered:", pos, " - move:", actionList)
-            for successor, action, stepCost in problem.getSuccessors(popState):
-                cost = util.manhattanDistance(pos, goal) + len(actionList + [action])
-                pq.push((successor, actionList + [action]), cost)
+# def cornersAStarSearch(state, problem, goal):
+#     currentPosition, cornersLeft = state
+#     discovered = []
+#     pq = util.PriorityQueue()    
+#     pq.push((state, []), util.manhattanDistance(currentPosition, goal))
+#     while not pq.isEmpty():
+#         popState, actionList = pq.pop()
+#         pos, cornersLeft = popState
+#         if pos == goal:
+#             return actionList
+#         if not pos in discovered:
+#             discovered.append(pos)
+#             #print("discovered:", pos, " - move:", actionList)
+#             for successor, action, stepCost in problem.getSuccessors(popState):
+#                 cost = util.manhattanDistance(pos, goal) + len(actionList + [action])
+#                 pq.push((successor, actionList + [action]), cost)
 
 
 
