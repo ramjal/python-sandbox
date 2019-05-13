@@ -15,20 +15,20 @@ if __name__ == "__main__":
             [' ', ' ', ' '],
             [' ', ' ', ' ']]
 
-    currentPlayer = ''
+    currentPlayer = 'X'
     drawBoard(game)
 
     while True:
-        (x,y) = input("What's your next move?\n").split(',')
+        (x,y) = input("Current player = {}\nWhat's your next move?\n".format(currentPlayer)).split(',')
         col = int(x) - 1
         row = int(y) - 1
         if col < 0 or row > 2:
             print("Not a valid move!")
         else:
+            game[col][row] = currentPlayer
+            drawBoard(game)
             if currentPlayer == 'X':
                 currentPlayer = 'O'
             else:
                 currentPlayer = 'X'
-            game[col][row] = currentPlayer
-            drawBoard(game)
 

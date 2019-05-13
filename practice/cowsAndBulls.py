@@ -23,7 +23,7 @@ def playGame(myNumber, inputNumber):
                 bulls += 1
                 cows -= 1
         if bulls == 4:
-            print('********* Congratulations! you won! The secret number was {} *********'.format(myNumber))
+            print('********* Congratulations! YOU WON! The secret number was {} *********'.format(myNumber))
             return
         else:
             print('\t{} Bulls and {} Cows'.format(bulls, cows))
