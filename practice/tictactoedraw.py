@@ -23,7 +23,9 @@ if __name__ == "__main__":
         col = int(x) - 1
         row = int(y) - 1
         if col < 0 or row > 2:
-            print("Not a valid move!")
+            print("*** Not a valid move!")
+        elif game[col][row] != ' ':
+            print("*** Not a valid move! This slot is already taken.")
         else:
             game[col][row] = currentPlayer
             drawBoard(game)
