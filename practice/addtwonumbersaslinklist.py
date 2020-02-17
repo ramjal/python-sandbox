@@ -44,4 +44,7 @@ while result:
     print(result.val)
     result = result.next
 
-# 7 0 8
+
+# 7 
+# 0 
+# 8
